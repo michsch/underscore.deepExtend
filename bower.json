@@ -10,7 +10,7 @@
     "package.json",
     "coffee",
     "libs",
-    "test",
+    "test"
   ],
   "dependencies" : {
     "underscore" : "1.4.x"
