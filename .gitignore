@@ -1,0 +1,8 @@
+# Specify intentionally untracked files.
+
+Thumbs.db
+.DS_Store
+*.map
+
+libs
+node_modules
