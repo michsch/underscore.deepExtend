@@ -32,7 +32,7 @@
   }
   deepClone = function(obj) {
     var func, isArr;
-    if (!_.isObject(obj || _.isFunction(obj))) {
+    if (!_.isObject(obj) || _.isFunction(obj)) {
       return obj;
     }
     if (_.isDate(obj)) {
