@@ -37,7 +37,7 @@
 
   # Create a deep copy of an object. - Based on https://github.com/documentcloud/underscore/pull/595
   deepClone = ( obj ) ->
-    if !_.isObject obj or _.isFunction obj then return obj
+    if !_.isObject( obj ) or _.isFunction( obj ) then return obj
     if _.isDate( obj ) then return new Date do obj.getTime
     if _.isRegExp( obj ) then return new RegExp obj.source, obj.toString().replace(/.*\//, "")
 
