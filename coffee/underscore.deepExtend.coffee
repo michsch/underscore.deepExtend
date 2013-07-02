@@ -9,7 +9,7 @@
  * underscore.deepExtend - v0.1.1 - 2013-06-27
  * https://github.com/michsch/underscore.deepExtend
  * original: https://gist.github.com/echong/3861963
- * Copyright (c) 2013 Elliot Chong, Michael Schulze (AMD wrapper); Licensed MIT license & WTFPL 
+ * Copyright (c) 2013 Elliot Chong, Michael Schulze (AMD wrapper); Licensed MIT license & WTFPL
 ###
 
 ( ( root, factory ) ->
@@ -32,7 +32,7 @@
   exports = exports or {}
   _ = _ or window._
 
-  if typeof _ isnt "object"
+  if typeof _ isnt "function" or typeof _ isnt "object"
     throw new Error "Underscore not loaded!"
 
   # Create a deep copy of an object. - Based on https://github.com/documentcloud/underscore/pull/595
