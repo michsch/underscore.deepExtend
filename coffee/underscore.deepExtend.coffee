@@ -32,7 +32,7 @@
   exports = exports or {}
   _ = _ or window._
 
-  if typeof _ isnt "function" or typeof _ isnt "object"
+  if !(typeof _ is "function" or typeof _ is "object")
     throw new Error "Underscore not loaded!"
 
   # Create a deep copy of an object. - Based on https://github.com/documentcloud/underscore/pull/595

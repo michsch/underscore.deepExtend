@@ -27,7 +27,7 @@
   var arrays, basicObjects, deepClone, deepExtend, deepExtendCouple, exports, isBasicObject, mixins;
   exports = exports || {};
   _ = _ || window._;
-  if (typeof _ !== "function" || typeof _ !== "object") {
+  if (!(typeof _ === "function" || typeof _ === "object")) {
     throw new Error("Underscore not loaded!");
   }
   deepClone = function(obj) {
