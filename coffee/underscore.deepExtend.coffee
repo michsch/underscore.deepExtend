@@ -6,10 +6,10 @@
 ###
 
 ###*
- * underscore.deepExtend - v0.1.1 - 2013-06-27
+ * underscore.deepExtend - v0.1.3 - 2014-07-27
  * https://github.com/michsch/underscore.deepExtend
  * original: https://gist.github.com/echong/3861963
- * Copyright (c) 2013 Elliot Chong, Michael Schulze (AMD wrapper); Licensed MIT license & WTFPL
+ * Copyright (c) 2014 Elliot Chong, Michael Schulze (AMD wrapper); Licensed MIT license & WTFPL
 ###
 
 ( ( root, factory ) ->
