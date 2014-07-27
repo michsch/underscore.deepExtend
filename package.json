@@ -19,7 +19,7 @@
     "url": "https://github.com/michsch/underscore.deepExtend/issues"
   },
   "scripts": {
-    "test": "grunt qunit --verbose"
+    "test": "grunt travis --verbose"
   },
   "main": "Gruntfile.js",
   "dependencies": {

@@ -49,38 +49,10 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc'
       },
       gruntfile: {
-        options: {
-          curly: true,
-          eqeqeq: true,
-          immed: true,
-          latedef: true,
-          newcap: true,
-          noarg: true,
-          sub: true,
-          undef: true,
-          unused: true,
-          boss: true,
-          eqnull: true,
-          browser: true,
-          node: true,
-          strict : true,
-          globals: {
-            module : true
-          }
-        },
         src: [ 'Gruntfile.js' ]
       },
       main: {
-        options: {
-          jshintrc: '.jshintrc'
-        },
         src: [ 'Gruntfile.js' ]
-      },
-      test: {
-        //options: {
-        //  jshintrc: 'test/.jshintrc'
-        //},
-        src: [ 'test/**/*.js' ]
       }
     },
     uglify: {
@@ -113,11 +85,18 @@ module.exports = function(grunt) {
 
   grunt.registerTask( 'comment', [ 'string-replace:comment' ]);
 
-  grunt.registerTask( 'compile', [
-      'coffee',
-      'jshint',
-      'uglify'
+  grunt.registerTask( 'travis', [
+    'coffee',
+    'jshint',
+    'uglify'
   ]);
+
+  grunt.registerTask( 'compile', [
+    'coffee',
+    'jshint',
+    'uglify'
+  ]);
+
 
   // Default task.
   grunt.registerTask('default', 'watch:module');
