@@ -1,8 +1,8 @@
-Copyright 2013 Elliot Chong (github.com/echong),
+Copyright 2013 Elliot Chong (github.com/ElliotChong, @ElliotChong),
 Michael Schulze (github.com/michsch, @michsch)
 
 Originally published under WTFPL
-(see comment: https://gist.github.com/echong/3861963#comment-808147).
+(see comment: https://gist.github.com/ElliotChong/3861963#comment-808147).
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

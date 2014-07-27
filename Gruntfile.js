@@ -9,20 +9,24 @@ module.exports = function(grunt) {
         '<%= grunt.template.today("yyyy-mm-dd") + "\\n" %>' +
         '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
         '<%= pkg.original ? " * original: " + pkg.original + "\\n" : "" %>' +
+        ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;\n' +
+        ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n',
+      //bannermin: '/*! <%= meta.banner %> */\n'
+      bannermin: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+        '<%= grunt.template.today("yyyy-mm-dd") + "\\n" %>' +
+        '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
         ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>',
-      bannercoffee: '###*\n * <%= meta.banner %> \n###',
-      bannerjs: '/*! <%= meta.banner %> */\n'
+        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n'
     },
     'string-replace': {
-      comment: {
+      version: {
         files: {
-          './': [ '**/*.coffee' ]
+          './': [ './bower.json' ]
         },
         options: {
           replacements: [{
-            pattern: /###\*(\n|\r|(\r\n))(.|\n|\r|(\r\n))*###/i,
-            replacement: '<%= meta.bannercoffee %>'
+            pattern: /(\"version\":).*/i,
+            replacement: '$1 "<%= pkg.version %>",'
           }]
         }
       }
@@ -35,13 +39,25 @@ module.exports = function(grunt) {
         expand: true,
         cwd: 'coffee/',
         src: [ '**/*.coffee' ],
-        dest: '',
+        dest: 'dist/',
         rename: function( destPath, srcPath ) {
           var dest;
           dest = destPath + srcPath.replace(/\.coffee$/,".js");
           return dest;
         }
         //ext: '.js'
+      }
+    },
+    usebanner: {
+      taskName: {
+        options: {
+          position: 'top' || 'bottom',
+          banner: '/* <%= meta.banner %> */',
+          linebreak: true || false
+        },
+        files: {
+          src: [ 'dist/underscore.deepExtend.js' ]
+        }
       }
     },
     jshint: {
@@ -58,46 +74,43 @@ module.exports = function(grunt) {
     uglify: {
       prod: {
         options : {
-          banner: '<%= meta.bannerjs %>'
+          banner: '<%= meta.bannermin %>'
         },
         files: {
-          'underscore.deepExtend.min.js' : [ 'underscore.deepExtend.js' ]
+          'dist/underscore.deepExtend.min.js' : [ 'dist/underscore.deepExtend.js' ]
         }
       }
     },
     watch: {
-      module: {
+      build: {
         files: [
           'Gruntfile.js',
           'coffee/**/*.coffee'
         ],
-        tasks: 'compile'
+        tasks: 'build'
       }
     }
   });
 
-  // Load grunt-compass plugin
-  grunt.loadNpmTasks( 'grunt-contrib-coffee' );
-  grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-  grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-  grunt.loadNpmTasks( 'grunt-contrib-watch' );
-  grunt.loadNpmTasks( 'grunt-string-replace' );
+  grunt.loadNpmTasks('grunt-banner');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-string-replace');
 
-  grunt.registerTask( 'comment', [ 'string-replace:comment' ]);
+  grunt.registerTask('version', ['string-replace:version']);
 
-  grunt.registerTask( 'travis', [
+  grunt.registerTask('build', [
+    'version',
     'coffee',
+    'usebanner',
     'jshint',
     'uglify'
   ]);
 
-  grunt.registerTask( 'compile', [
-    'coffee',
-    'jshint',
-    'uglify'
-  ]);
-
+  grunt.registerTask('travis', ['build',]);
 
   // Default task.
-  grunt.registerTask('default', 'watch:module');
+  grunt.registerTask('default', 'watch:build');
 };

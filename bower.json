@@ -1,18 +1,17 @@
 {
-  "name" : "underscore.deepExtend",
-  "version" : "0.1.3",
-  "main" : "./underscore.deepExtend",
-  "ignore" : [
+  "name": "underscore.deepExtend",
+  "version": "0.1.4",
+  "main": "dist/underscore.deepExtend",
+  "ignore": [
     ".editorconfig",
     ".gitignore",
     ".jshintrc",
     "Gruntfile.js",
     "package.json",
     "coffee",
-    "libs",
-    "test"
+    "libs"
   ],
-  "dependencies" : {
-    "underscore" : "1.4.x"
+  "dependencies": {
+    "underscore": "~1.6.0"
   }
 }
