@@ -1,12 +1,13 @@
+### global define, module, require ###
 ((root, factory) ->
   'use strict'
 
-  # CommonJS
-  if typeof root._ is 'function' and typeof exports is 'object'
-    module.exports = factory root._
   # AMD
-  else if typeof define is 'function' and define.amd
+  if typeof define is 'function' and define.amd
     define ['underscore'], factory
+  # CommonJS
+  else if typeof exports is 'object'
+    module.exports = factory require('underscore')
   # Browser
   else if typeof root._ is 'function'
     factory root._
@@ -21,7 +22,7 @@
   if !(typeof _ is 'function' or typeof _ is 'object')
     throw new Error 'Underscore not loaded!'
 
-  ###
+  ###*
   # Create a deep copy of an object.
   # Based on https://github.com/documentcloud/underscore/pull/595
   #
@@ -43,7 +44,7 @@
       return memo;
     return _.reduce obj, func, if isArr then [] else {}
 
-  ###
+  ###*
   # Is a given value a basic Object? i.e.: {} || new Object()
   #
   # @method isBasicObject
@@ -60,7 +61,7 @@
     not _.isRegExp(object) and
     not _.isArguments(object)
 
-  ###
+  ###*
   # Returns a list of the names of every object in an object — that is to say,
   # the name of every property of the object that is an object.
   #
@@ -71,7 +72,7 @@
   basicObjects = (object) ->
     _.filter _.keys(object), (key) -> isBasicObject object[key]
 
-  ###
+  ###*
   # Returns a list of the names of every array in an object — that is to say,
   # the name of every property of the object that is an array.
   #
@@ -82,7 +83,7 @@
   arrays = (object) ->
     _.filter(_.keys(object), (key) -> _.isArray object[key])
 
-  ###
+  ###*
   # Copy and combine all of the properties in the source objects over to the
   # destination object and return the destination object. This method will
   # recursively copy shared properties which are also objects and combine arrays.
@@ -99,7 +100,10 @@
       console.warn '_.deepExtend(): Maximum depth of recursion hit.'
       return _.extend destination, source
 
-    sharedObjectKeys = _.intersection(basicObjects(destination), basicObjects(source))
+    sharedObjectKeys = _.intersection(
+      basicObjects(destination),
+      basicObjects(source)
+    )
 
     recurse = ( key ) ->
       source[key] = deepExtendCouple destination[key], source[key], maxDepth-1
@@ -114,7 +118,7 @@
 
     _.extend destination, source
 
-  ###
+  ###*
   # Copy and combine all of the properties in the supplied objects from right to
   # left and return the combined object. This method will recursively copy
   # shared properties which are also objects and combine arrays.
@@ -145,7 +149,11 @@
 
     finalObj = do objects.shift
     while objects.length > 0
-      finalObj = deepExtendCouple finalObj, deepClone( do objects.shift ), maxDepth
+      finalObj = deepExtendCouple(
+        finalObj,
+        deepClone( do objects.shift ),
+        maxDepth
+      )
 
     return finalObj
 

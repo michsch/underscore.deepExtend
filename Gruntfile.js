@@ -109,8 +109,8 @@ module.exports = function(grunt) {
     'uglify'
   ]);
 
-  grunt.registerTask('travis', ['build',]);
+  grunt.registerTask('travis', ['build']);
 
   // Default task.
-  grunt.registerTask('default', 'watch:build');
+  grunt.registerTask('default', 'build');
 };

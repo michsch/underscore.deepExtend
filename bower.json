@@ -1,6 +1,6 @@
 {
   "name": "underscore.deepExtend",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/underscore.deepExtend",
   "ignore": [
     ".editorconfig",
@@ -12,6 +12,6 @@
     "libs"
   ],
   "dependencies": {
-    "underscore": "~1.6.0"
+    "underscore": "~1.7.0"
   }
 }

@@ -1,15 +1,17 @@
-/* underscore.deepExtend - v0.1.4 - 2014-07-27
+/* underscore.deepExtend - v0.1.5 - 2015-02-16
  * https://github.com/michsch/underscore.deepExtend
- * original: https://gist.github.com/echong/3861963
- * Copyright (c) 2014 Elliot Chong, Michael Schulze (AMD wrapper);
+ * original: https://gist.github.com/ElliotChong/3861963
+ * Copyright (c) 2015 Elliot Chong, Michael Schulze (AMD wrapper);
  * Licensed MIT license & WTFPL
  */
+
+/* global define, module, require */
 (function(root, factory) {
   'use strict';
-  if (typeof root._ === 'function' && typeof exports === 'object') {
-    module.exports = factory(root._);
-  } else if (typeof define === 'function' && define.amd) {
+  if (typeof define === 'function' && define.amd) {
     define(['underscore'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('underscore'));
   } else if (typeof root._ === 'function') {
     factory(root._);
   }
@@ -22,7 +24,7 @@
     throw new Error('Underscore not loaded!');
   }
 
-  /*
+  /**
    * Create a deep copy of an object.
    * Based on https://github.com/documentcloud/underscore/pull/595
    *
@@ -53,7 +55,7 @@
     return _.reduce(obj, func, isArr ? [] : {});
   };
 
-  /*
+  /**
    * Is a given value a basic Object? i.e.: {} || new Object()
    *
    * @method isBasicObject
@@ -64,7 +66,7 @@
     return (object.prototype === {}.prototype || object.prototype === Object.prototype) && _.isObject(object) && !_.isArray(object) && !_.isFunction(object) && !_.isDate(object) && !_.isRegExp(object) && !_.isArguments(object);
   };
 
-  /*
+  /**
    * Returns a list of the names of every object in an object — that is to say,
    * the name of every property of the object that is an object.
    *
@@ -78,7 +80,7 @@
     });
   };
 
-  /*
+  /**
    * Returns a list of the names of every array in an object — that is to say,
    * the name of every property of the object that is an array.
    *
@@ -92,7 +94,7 @@
     });
   };
 
-  /*
+  /**
    * Copy and combine all of the properties in the source objects over to the
    * destination object and return the destination object. This method will
    * recursively copy shared properties which are also objects and combine arrays.
@@ -131,7 +133,7 @@
     return _.extend(destination, source);
   };
 
-  /*
+  /**
    * Copy and combine all of the properties in the supplied objects from right to
    * left and return the combined object. This method will recursively copy
    * shared properties which are also objects and combine arrays.
